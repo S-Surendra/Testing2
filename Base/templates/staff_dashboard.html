@@ -1,0 +1,26 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Staff Dashboard</title>
+    <link rel="stylesheet" href="{% static 'staff.css' %}">
+</head>
+<body>
+    <header>
+        <h1>Welcome, Staff</h1>
+        <nav>
+            <ul>
+                <li><a href="#">Manage Timetable</a></li>
+                <li><a href="#">Staff Notices</a></li>
+                <li><a href="#">Resources</a></li>
+                <li><a href="/logout/">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="intro">
+        <p>This is your dashboard. Use the menu to manage administrative tasks.</p>
+    </section>
+</body>
+</html>

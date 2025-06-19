@@ -1,0 +1,31 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="{% static 'student_list.css' %}">
+
+    <title>Staff List</title>
+</head>
+<body>
+    <h2>Staff Records</h2>
+     <a href="{% url 'add_staff' %}">Add New Staff</a>
+    <table border="1">
+        <tr>
+            <th>Staff Id</th>
+            <th>Staff Name</th>
+            <th>Desiganation</th>
+            
+            
+        </tr>
+        {% for staff in staffs %}
+        <tr>
+            <td>{{staff.staff_id}}</td>
+            <td>{{ staff.name }}</td>
+            <td>{{ staff.designation }}</td>
+            
+           
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

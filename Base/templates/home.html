@@ -1,0 +1,56 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>School Management System</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 text-gray-800 font-serif text-lg">
+
+<header class="bg-cyan-800 text-white p-6 shadow-md">
+    <h1 class="text-3xl font-bold text-center">Test School Higher Secondary School</h1>
+    <nav class="mt-4">
+        <ul class="flex flex-wrap justify-center gap-4">
+            <li><a href="/teacher/" class="hover:bg-cyan-600 px-3 py-1 rounded transition">Teacher Panel</a></li>
+            <li><a href="/staff/" class="hover:bg-cyan-600 px-3 py-1 rounded transition">Staff Panel</a></li>
+            <li><a href="/student/" class="hover:bg-cyan-600 px-3 py-1 rounded transition">Student Panel</a></li>
+             <li><a href="/schools/" class="hover:bg-cyan-600 px-3 py-1 rounded transition">schools</a></li>
+           
+        </ul>
+    </nav>
+</header>
+
+<main class="p-6 text-center">
+    <h2 class="text-2xl font-semibold mb-4">🎓 Manage School Efficiently</h2>
+    <p class="text-lg mb-8">This portal helps streamline management of students, teachers, and staff through a unified system.</p>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+        <div class="bg-white rounded-xl shadow p-6">
+            <h3 class="text-xl font-semibold mb-2 text-cyan-800">
+                <a href="{% url 'student_list' %}" class="hover:underline">Total Students</a>
+            </h3>
+            <p class="text-3xl font-bold">{{ student_count }}</p>
+        </div>
+        <div class="bg-white rounded-xl shadow p-6">
+            <h3 class="text-xl font-semibold mb-2 text-cyan-800">
+                <a href="{% url 'teacher_list' %}" class="hover:underline">Total Teachers</a>
+            </h3>
+            <p class="text-3xl font-bold">{{ teacher_count }}</p>
+        </div>
+        <div class="bg-white rounded-xl shadow p-6">
+            <h3 class="text-xl font-semibold mb-2 text-cyan-800">
+                <a href="{% url 'staff_list' %}" class="hover:underline">Total Staff</a>
+            </h3>
+            <p class="text-3xl font-bold">{{ staff_count }}</p>
+        </div>
+    </div>
+</main>
+
+<footer class="bg-gray-200 text-center p-4 mt-10 text-sm">
+    <p>&copy; 2025 ABC School. All rights reserved.</p>
+</footer>
+
+</body>
+</html>

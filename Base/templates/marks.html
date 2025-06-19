@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Marksheet</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f1f8f4;
+            margin: 0;
+            padding: 20px;
+        }
+        h2 {
+            text-align: center;
+            color: #2e7d32;
+        }
+        table {
+            width: 90%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            background-color: white;
+            border: 1px solid #c8e6c9;
+        }
+        th, td {
+            padding: 10px;
+            text-align: center;
+            border-bottom: 1px solid #c8e6c9;
+            font-size: 14px;
+        }
+        th {
+            background-color: #4caf50;
+            color: white;
+            font-weight: 600;
+        }
+        tr:nth-child(even) {
+            background-color: #e8f5e9;
+        }
+        tr:hover {
+            background-color: #d0f0d2;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Student Marksheet</h2>
+
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Class</th>
+        <th>Enrollment No.</th>
+        <th>Email</th>
+        <th>DOB</th>
+        <th>Mobile</th>
+    </tr>
+    <tr>
+        <td>{{ student.name }}</td>
+        <td>{{ student.classes }}</td>
+        <td>{{ student.enrollment_number }}</td>
+        <td>{{ student.email }}</td>
+        <td>{{ student.date_of_birth }}</td>
+        <td>{{ student.mobile_number }}</td>
+    </tr>
+</table>
+
+<table>
+    <tr>
+        <th rowspan="2">Subject</th>
+        <th rowspan="2">Max. Marks</th>
+        <th colspan="2">Quarterly</th>
+        <th colspan="2">Half-Yearly</th>
+        <th colspan="4">Annual</th>
+    </tr>
+    <tr>
+        <th>Marks</th>
+        <th>Result</th>
+        <th>Marks</th>
+        <th>Result</th>
+        <th>Max TH</th>
+        <th>Max PR</th>
+        <th>Obt TH</th>
+        <th>Obt PR</th>
+    </tr>
+
+    {% for subject in subjects %}
+    <tr>
+        <td>{{ subject.name }}</td>
+        <td>100</td>
+        <td>{{ subject.quarterly }}</td>
+        <td>{% if subject.quarterly >= 20 %}Pass{% else %}Fail{% endif %}</td>
+        <td>{{ subject.half_yearly }}</td>
+        <td>{% if subject.half_yearly >= 20 %}Pass{% else %}Fail{% endif %}</td>
+        <td>75</td>
+        <td>25</td>
+        <td>{{ subject.annual_th }}</td>
+        <td>{{ subject.annual_pr }}</td>
+    </tr>
+    {% endfor %}
+
+    <tr>
+        <th>Total</th>
+        <th>600</th>
+        <td colspan="2">{{ total_quarterly }}</td>
+        <td colspan="2">{{ total_half_yearly }}</td>
+        <td colspan="4">Total Obtained: {{ total_annual }}/900</td>
+    </tr>
+</table>
+
+</body>
+</html>

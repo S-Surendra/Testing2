@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Marksheet</title>
+</head>
+<body>
+    <h2>Student Marksheet</h2>
+    {% for student, marks in data.items %}
+        <h3>{{ student.name }} ({{ student.roll_no }}) - Class: {{ student.class_name }}</h3>
+        <table border="1" cellpadding="5">
+            <tr>
+                <th>Subject</th>
+                <th>Exam Type</th>
+                <th>Theory</th>
+                <th>Practical</th>
+                <th>Total</th>
+            </tr>
+            {% for mark in marks %}
+            <tr>
+                <td>{{ mark.subject }}</td>
+                <td>{{ mark.get_exam_type_display }}</td>
+                <td>{{ mark.theory_marks }}</td>
+                <td>{{ mark.practical_marks }}</td>
+                <td>{{ mark.total_marks }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    {% empty %}
+        <p>No data available.</p>
+    {% endfor %}
+</body>
+</html>

@@ -1,0 +1,18 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="{% static 'add_student.css' %}">
+
+    <title>Add Staff</title>
+</head>
+<body>
+    <h2>Add New Staff</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Save</button>
+    </form>
+    <a href="{% url 'staff_list' %}">View All Staff</a>
+</body>
+</html>

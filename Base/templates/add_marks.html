@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Marks</title>
+</head>
+<body>
+    <h2>Add Marks</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Submit</button>
+    </form>
+    <a href="{% url 'marksheet' %}">View Marksheet</a>
+</body>
+</html>

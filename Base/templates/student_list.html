@@ -1,0 +1,149 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student List</title>
+    <link rel="stylesheet" href="{% static 'student_list.css' %}">
+
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f7fa;
+            margin: 0;
+            padding: 40px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #2c3e50;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        th, td {
+            padding: 14px 20px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #2f3542;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f0f4f8;
+        }
+
+        tr:hover {
+            background-color: #e6f0ff;
+        }
+
+        a, button {
+            text-decoration: none;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 14px;
+            margin: 2px;
+        }
+
+        a {
+            background-color: #3498db;
+            color: white;
+        }
+
+        a:hover, button:hover {
+            opacity: 0.9;
+        }
+
+        .edit-btn {
+            background-color: #1abc9c;
+            color: white;
+            border: none;
+        }
+
+        .delete-btn {
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+        }
+
+        .add-btn {
+            background-color: #27ae60;
+            color: white;
+            display: inline-block;
+            margin-bottom: 16px;
+        }
+
+    </style>
+
+    <script>
+    async function deleteStudent(pk, rowId) {
+        if (confirm("Are you sure you want to delete this student?")) {
+            try {
+                const response = await fetch(`/delete/${pk}/`, {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRFToken': '{{ csrf_token }}',
+                    },
+                });
+
+                if (response.ok) {
+                    document.getElementById(rowId).remove();
+                } else {
+                    alert('Failed to delete student.');
+                }
+            } catch (err) {
+                alert('Error occurred.');
+            }
+        }
+    }
+    </script>
+</head>
+
+<body>
+    <h2>Student Records</h2>
+
+    <a href="{% url 'add_student' %}" class="add-btn">Add New Student</a>
+
+    <table>
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Enrollment No.</th>
+            <th>View</th>
+            <th>Marksheet</th>
+            <th>Attendance</th>
+            <th>Fees</th>
+            <th>Edit</th>
+            <th>Delete</th>
+            <th>Add Item</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for student in students %}
+        <tr id="student-row-{{ student.pk }}">
+            <td>{{ student.name }}</td>
+            <td>{{ student.enrollment_number }}</td>
+            <td><a href="{% url 'student_info' student.pk %}">View</a></td>
+            <td><a href="{% url 'marks' student.pk %}">Marks</a></td>
+            <td><a href="{% url 'attendance' student.pk %}">Attendance</a></td>
+            <td><a href="{% url 'fees' student.pk %}">Fees</a></td>
+            <td><a href="{% url 'edit_item' student.pk %}" class="edit-btn">Edit</a></td>
+            <td>
+                <button class="delete-btn" onclick="deleteStudent('{{ student.pk }}', 'student-row-{{ student.pk }}')">Delete</button>
+            </td>
+            <td><a href="{% url 'add_item' %}">Add Item</a></td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
+ 

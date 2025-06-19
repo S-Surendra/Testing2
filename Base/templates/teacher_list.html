@@ -1,0 +1,51 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Teacher List</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+    <div class="container mx-auto p-6">
+        <h2 class="text-3xl font-bold text-center mb-6 text-cyan-800">👩‍🏫 Teacher Records</h2>
+
+        <div class="text-right mb-4">
+            <a href="{% url 'add_teacher' %}" class="inline-block bg-cyan-700 hover:bg-cyan-600 text-white font-semibold py-2 px-4 rounded shadow">
+                 Add New Teacher
+            </a>
+        </div>
+
+        <div class="overflow-x-auto">
+            <table class="min-w-full bg-white shadow-md rounded-lg overflow-hidden">
+                <thead class="bg-cyan-700 text-white">
+                    <tr>
+                        <th class="py-3 px-4 text-left">Teacher</th>
+                        <th class="py-3 px-4 text-left">Subject</th>
+                        <th class="py-3 px-4 text-left">Mobile No.</th>
+                        <th class="py-3 px-4 text-left">PayScale</th>
+                        <th class="py-3 px-4 text-left">Adhaar No.</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-200">
+                    {% for teacher in teachers %}
+                    <tr class="hover:bg-gray-50">
+                        <td class="py-3 px-4">{{ teacher.user }}</td>
+                        <td class="py-3 px-4">{{ teacher.subject }}</td>
+                        <td class="py-3 px-4">{{ teacher.mobile_number }}</td>
+                        <td class="py-3 px-4">{{ teacher.pay_scale }}</td>
+                        <td class="py-3 px-4">{{ teacher.adhaar_number }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="5" class="text-center py-4 text-gray-500">No teachers found.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</body>
+</html>

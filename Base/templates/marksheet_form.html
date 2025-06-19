@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Marksheet Entry</title>
+    <style>
+        .term-section { display: none; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #ccc; padding: 8px; }
+        th { background-color: #eee; }
+    </style>
+</head>
+<body>
+    <h2>Enter Student Marksheet Details</h2>
+
+    <form id="marksheet-form" method="post">
+        {% csrf_token %}
+        <p>{{ form.student.label_tag }} {{ form.student }}</p>
+        <p>{{ form.term.label_tag }} {{ form.term }}</p>
+
+        <table>
+            <!-- Quarterly -->
+            <tbody id="term-Quarterly" class="term-section">
+                <tr><th colspan="2">Quarterly</th></tr>
+                {% for field in form %}
+                    {% if "quarterly" in field.name %}
+                        <tr><td>{{ field.label_tag }}</td><td>{{ field }}</td></tr>
+                    {% endif %}
+                {% endfor %}
+            </tbody>
+
+            <!-- Half Yearly -->
+            <tbody id="term-Half_Yearly" class="term-section">
+                <tr><th colspan="2">Half Yearly</th></tr>
+                {% for field in form %}
+                    {% if "half_yearly" in field.name %}
+                        <tr><td>{{ field.label_tag }}</td><td>{{ field }}</td></tr>
+                    {% endif %}
+                {% endfor %}
+            </tbody>
+
+            <!-- Annual -->
+            <tbody id="term-Annual" class="term-section">
+                <tr><th colspan="2">Annual</th></tr>
+                {% for field in form %}
+                    {% if "annual" in field.name %}
+                        <tr><td>{{ field.label_tag }}</td><td>{{ field }}</td></tr>
+                    {% endif %}
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <h3 id="total-marks">Total Marks: 0</h3>
+
+        <button type="submit">Submit</button>
+    </form>
+
+    <script>
+        function toggleFieldsByTerm() {
+            const term = document.getElementById("id_term").value;
+            document.querySelectorAll(".term-section").forEach(sec => sec.style.display = 'none');
+
+            const sectionId = "term-" + term.replace(" ", "_");
+            const section = document.getElementById(sectionId);
+            if (section) {
+                section.style.display = 'table-row-group';
+                calculateTotalMarks(section);
+            }
+        }
+
+        function calculateTotalMarks(section) {
+            const inputs = section.querySelectorAll("input");
+            let total = 0;
+            inputs.forEach(input => {
+                const val = parseInt(input.value);
+                if (!isNaN(val)) total += val;
+            });
+            document.getElementById("total-marks").textContent = "Total Marks: " + total;
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const termSelect = document.getElementById("id_term");
+            const form = document.getElementById("marksheet-form");
+
+            termSelect.addEventListener("change", toggleFieldsByTerm);
+            form.addEventListener("input", () => {
+                const currentSection = document.querySelector(".term-section[style*='display: table-row-group']");
+                if (currentSection) calculateTotalMarks(currentSection);
+            });
+
+            toggleFieldsByTerm();  // Initial call
+        });
+    </script>
+</body>
+</html>
