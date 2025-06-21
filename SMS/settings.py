@@ -30,6 +30,9 @@ DEBUG = True
 
 #ALLOWED_HOSTS = [os.environ.get('RENDER_EXTERNAL_HOSTNAME', 'localhost')]
 ALLOWED_HOSTS = ['testing2-4wul.onrender.com']
+CSRF_TRUSTED_ORIGINS = [
+    'https://testing2-4wul.onrender.com',
+]
 
 
 
